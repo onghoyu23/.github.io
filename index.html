@@ -8,11 +8,11 @@
     body {
       font-family: 'Segoe UI', 'Noto Sans TC', sans-serif;
       background: linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)), 
-                  url('images/background.png') no-repeat center center fixed; /* 增加漸變遮罩 */
-      background-size: cover; /* 讓圖片覆蓋整個頁面 */
+                  url('images/background.png') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
-      justify-content: center; /* 水平置中 */
-      align-items: center; /* 垂直置中 */
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
       margin: 0;
       position: relative;
@@ -20,18 +20,18 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.3); /* 半透明白色背景 */
-      backdrop-filter: blur(30px); /* 磨砂玻璃效果 */
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(30px);
       padding: 40px;
       border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       max-width: 440px;
       width: 100%;
     }
 
     h2 {
       text-align: center;
-      color: #2b1f19; /* 深棕 */
+      color: #2b1f19;
       font-size: 24px;
       margin-bottom: 28px;
     }
@@ -44,26 +44,25 @@
     label {
       display: block;
       margin-bottom: 6px;
-      color: #2b1f19; /* 中棕 */
+      color: #2b1f19;
       font-weight: 500;
       font-size: 15px;
     }
 
     input[type="text"],
-    input[type="password"],
-    input[type="email"] {
+    input[type="password"] {
       width: 100%;
       padding: 12px 14px;
-      border: 1px solid #C8B6A6; /* 冷色棕 */
+      border: 1px solid #C8B6A6;
       border-radius: 8px;
       font-size: 15px;
-      background-color: rgba(250, 245, 239, 0.8); /* 半透明背景 */
+      background-color: rgba(250, 245, 239, 0.8);
       box-sizing: border-box;
     }
 
     input:focus {
       outline: none;
-      border-color: #2b1f19; /* 深棕 */
+      border-color: #2b1f19;
     }
 
     .toggle-password {
@@ -72,23 +71,13 @@
       right: 14px;
       cursor: pointer;
       font-size: 14px;
-      color: #A68A7A; /* 冷色棕 */
-    }
-
-    .remember-box {
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .remember-box input {
-      margin-right: 8px;
+      color: #A68A7A;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #2b1f19; /* 深棕 */
+      background-color: #2b1f19;
       color: white;
       border: none;
       border-radius: 8px;
@@ -100,11 +89,11 @@
     }
 
     button:hover {
-      background-color: #3b2a22; /* 更深的棕色 */
+      background-color: #3b2a22;
     }
 
     button:active {
-      transform: scale(0.98); /* 按下時縮小 */
+      transform: scale(0.98);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     }
 
@@ -128,15 +117,15 @@
     }
 
     .social-buttons button.google {
-      background-color: #B85750; /* 紅棕 */
+      background-color: #B85750;
     }
 
     .social-buttons button.facebook {
-      background-color: #5A6E8B; /* 冷色棕藍 */
+      background-color: #5A6E8B;
     }
 
     .social-buttons button.line {
-      background-color: #6B8B5E; /* 綠色棕 */
+      background-color: #6B8B5E;
     }
 
     .social-buttons button:hover {
@@ -150,35 +139,27 @@
     }
 
     .footer-links a {
-      color: #3c2f26; /* 更深的暖棕色 */
-      font-size: 16px; /* 增加字體大小 */
-      font-weight: bold; /* 加粗文字 */
+      color: #3c2f26;
       text-decoration: none;
       margin: 0 8px;
-      transition: color 0.3s ease;
     }
 
     .footer-links a:hover {
-      color: #D2691E; /* 橙棕色 */
       text-decoration: underline;
     }
 
-    #response-message {
-      margin-top: 24px;
-      padding: 12px;
-      background-color: #E9F6F2; /* 淡綠棕 */
-      border-left: 4px solid #6BBF8E; /* 綠色棕 */
-      color: #2d7a41;
-      font-size: 14px;
-      text-align: center;
-      border-radius: 6px;
+    #success-message {
       display: none;
+      color: green;
+      text-align: center;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="card">
+      <div id="success-message">註冊成功！請登入。</div>
       <h2>登入系統</h2>
       <form id="login-form">
         <div class="form-group">
@@ -188,18 +169,8 @@
 
         <div class="form-group">
           <label for="password">密碼</label>
-          <input type="password" id="password" name="password" placeholder="請輸入密碼" required minlength="6">
+          <input type="password" id="password" name="password" placeholder="請輸入密碼" required>
           <span class="toggle-password" onclick="togglePassword()">顯示</span>
-        </div>
-
-        <div class="form-group">
-          <label for="captcha">驗證碼（請輸入 000000）</label>
-          <input type="text" id="captcha" name="captcha" placeholder="請輸入驗證碼" required pattern="1234">
-        </div>
-
-        <div class="remember-box">
-          <input type="checkbox" id="remember" name="remember">
-          <label for="remember">記住我</label>
         </div>
 
         <button type="submit">登入</button>
@@ -212,12 +183,33 @@
       </div>
 
       <div class="footer-links">
-        <a href="#" class="footer-link">註冊帳號</a> | 
+        <a href="register.html" class="footer-link">註冊帳號</a> | 
         <a href="#" class="footer-link">忘記密碼？</a>
       </div>
-
-      <div id="response-message">登入成功！</div>
     </div>
   </div>
+
+  <script>
+    // 顯示密碼功能
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const toggleButton = document.querySelector('.toggle-password');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.textContent = '隱藏';
+      } else {
+        passwordInput.type = 'password';
+        toggleButton.textContent = '顯示';
+      }
+    }
+
+    // 檢查是否從註冊頁面跳轉過來
+    window.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('registered') === 'true') {
+        document.getElementById('success-message').style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
