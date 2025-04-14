@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>建立新帳戶</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Noto Sans TC', sans-serif;
+      background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), 
+                  url('images/background.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      overflow-y: auto; /* 新增滾輪 */
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(30px);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      max-width: 600px; /* 調整寬度 */
+      width: 100%;
+      margin: 20px auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2b1f19;
+      font-size: 24px;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #2b1f19;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #C8B6A6;
+      border-radius: 8px;
+      font-size: 15px;
+      background-color: rgba(250, 245, 239, 0.8);
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #2b1f19;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .radio-group label,
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #2b1f19;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 36px;
+      right: 14px;
+      cursor: pointer;
+    }
+
+    .toggle-password img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .password-strength {
+      font-size: 12px;
+      margin-top: 4px;
+      color: #2b1f19;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #2b1f19;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    button:hover {
+      background-color: #3b2a22;
+    }
+
+    button:disabled {
+      background-color: #a8a8a8;
+      cursor: not-allowed;
+    }
+
+    .footer-links {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer-links a {
+      color: #3c2f26;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .other-interest {
+      margin-top: 10px;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: #2b1f19;
+    }
+
+    .terms input {
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>建立新帳戶</h2>
+      <form id="register-form">
+        <div class="form-group">
+          <label for="username">使用者名稱</label>
+          <input type="text" id="username" name="username" placeholder="請輸入使用者名稱" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">電子郵件</label>
+          <input type="email" id="email" name="email" placeholder="請輸入電子郵件" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">手機電話</label>
+          <input type="tel" id="phone" name="phone" placeholder="請輸入手機電話" required pattern="[0-9]{10}">
+        </div>
+
+        <div class="form-group">
+            <label for="password">密碼</label>
+            <input type="password" id="password" name="password" placeholder="請輸入密碼" required minlength="6">
+            <span class="toggle-password" onclick="togglePassword('password')">顯示</span>
+            <div id="password-strength" class="password-strength"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password">確認密碼</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="請再次輸入密碼" required>
+            <span class="toggle-password" onclick="togglePassword('confirm-password')">顯示</span>
+          </div>
+
+        <div class="form-group">
+          <label for="captcha">驗證碼</label>
+          <input type="text" id="captcha" name="captcha" placeholder="請輸入驗證碼" required>
+        </div>
+
+        <div class="form-group">
+          <label for="birthday">生日</label>
+          <input type="date" id="birthday" name="birthday" max="2023-12-31" required>
+        </div>
+
+        <div class="form-group">
+          <label>性別</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gender" value="male" required> 生理男</label>
+            <label><input type="radio" name="gender" value="female" required> 生理女</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>興趣</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="interests" value="design"> 設計</label>
+            <label><input type="checkbox" name="interests" value="art"> 藝術</label>
+            <label><input type="checkbox" name="interests" value="fashion"> 時尚</label>
+            <label><input type="checkbox" name="interests" value="trends"> 潮流</label>
+            <label><input type="checkbox" name="interests" value="cars"> 汽車</label>
+            <label><input type="checkbox" name="interests" value="ai"> 人工智慧</label>
+            <label><input type="checkbox" name="interests" value="gardening"> 園藝</label>
+            <label><input type="checkbox" name="interests" value="business"> 商業</label>
+            <label><input type="checkbox" name="interests" value="home"> 居家生活</label>
+            <label>
+              <input type="checkbox" id="other-interest-checkbox" name="interests" value="other"> 其他
+            </label>
+          </div>
+          <input type="text" id="other-interest" class="other-interest" placeholder="請填寫其他興趣">
+        </div>
+
+        <div class="form-group">
+          <label for="bio">簡介</label>
+          <textarea id="bio" name="bio" placeholder="簡單介紹自己吧!"></textarea>
+        </div>
+
+        <div class="form-group terms">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">我已閱讀並同意《<a href="#">使用條款</a>》與《<a href="#">隱私政策</a>》，並了解我的個人資料將依據政策進行處理。</label>
+        </div>
+
+        <button type="submit" id="submit-button">註冊</button>
+      </form>
+
+      <div class="footer-links">
+        <a href="index.html">返回登入</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 顯示與隱藏密碼功能
+  function togglePassword(fieldId) {
+    const passwordInput = document.getElementById(fieldId);
+    const toggleButton = passwordInput.nextElementSibling;
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleButton.textContent = '隱藏';
+    } else {
+      passwordInput.type = 'password';
+      toggleButton.textContent = '顯示';
+    }
+  }
+
+    // 密碼強度檢查
+    document.getElementById('password').addEventListener('input', function () {
+      const strengthText = document.getElementById('password-strength');
+      const password = this.value;
+      if (password.length < 6) {
+        strengthText.textContent = '密碼強度：弱';
+        strengthText.style.color = 'red';
+      } else if (password.length < 10) {
+        strengthText.textContent = '密碼強度：中';
+        strengthText.style.color = 'orange';
+      } else {
+        strengthText.textContent = '密碼強度：強';
+        strengthText.style.color = 'green';
+      }
+    });
+
+    // 顯示/隱藏 "其他" 興趣輸入框
+    document.getElementById('other-interest-checkbox').addEventListener('change', function () {
+      const otherInterestInput = document.getElementById('other-interest');
+      if (this.checked) {
+        otherInterestInput.style.display = 'block';
+        otherInterestInput.style.opacity = '1';
+        otherInterestInput.required = true;
+      } else {
+        otherInterestInput.style.opacity = '0';
+        setTimeout(() => {
+          otherInterestInput.style.display = 'none';
+          otherInterestInput.required = false;
+        }, 300);
+      }
+    });
+
+    // 限制興趣多選
+    const interestCheckboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+    interestCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function () {
+        const checkedCount = Array.from(interestCheckboxes).filter(cb => cb.checked).length;
+        if (checkedCount > 5) {
+          this.checked = false;
+          alert('最多只能選擇 5 個興趣！');
+        }
+      });
+    });
+
+    // 表單驗證與防止重複提交
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        alert('密碼與確認密碼不一致！');
+        return;
+      }
+
+      if (!document.getElementById('terms').checked) {
+        alert('請勾選同意使用條款與隱私政策！');
+        return;
+      }
+
+      const submitButton = document.getElementById('submit-button');
+      submitButton.disabled = true; // 禁用提交按鈕
+      alert('註冊成功！');
+      window.location.href = 'index.html?registered=true'; // 跳轉到登入頁面並附帶參數
+    });
+  </script>
+</body>
+</html>
